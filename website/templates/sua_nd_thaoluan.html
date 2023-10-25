@@ -1,0 +1,14 @@
+{% extends 'master.html' %}
+
+{% block title %}Sửa Nội Dung Thảo Luận{% endblock %}
+
+
+
+{% block blogs %}
+  <form method="post" class="mb-4" novalidate>
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-primary">Lưu nội dung</button>
+    <a href="{% url 'chude_thaoluan' tl.chu_de.dien_dan.pk tl.chu_de.pk %}" class="btn btn-outline-secondary" role="button">Hủy bỏ</a>
+  </form>
+{% endblock %}

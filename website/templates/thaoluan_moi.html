@@ -1,0 +1,25 @@
+{% extends 'master.html' %}
+
+{% block blogs %}
+  <form method="post" class="mb-4">
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-success">Tạo thảo luận mới</button>
+  </form>
+
+  {% for tl in cd.cac_thaoluan.all %}
+    <div class="card mb-2">
+      <div class="card-body p-3">
+        <div class="row mb-3">
+          <div class="col-6">
+            <strong class="text-muted">{{ tl.tao_boi.username }}</strong>
+          </div>
+          <div class="col-6 text-right">
+            <small class="text-muted">{{ tl.ngay_capnhat }}</small>
+          </div>
+        </div>
+        {{ tl.nd }}
+      </div>
+    </div>
+  {% endfor %}
+{% endblock blogs %}

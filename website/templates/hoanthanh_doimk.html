@@ -1,0 +1,28 @@
+{% extends 'master.html' %}
+
+{% block title %}Mật khẩu đã được đổi!{% endblock %}
+
+{% block main_content %}
+<div class="container my-5">
+  <div class="row">
+    <div class="card">
+      <div class="col-sm-9 offset-sm-1 text-center">
+        <h3>Bạn đã đổi mật khẩu thành công !!</h3>
+        <div>
+            <iframe src="https://giphy.com/embed/ibolLe3mOqHE3PQTtk" width="200" height="200" frameborder="0" class="giphy-embed" allowfullscreen></iframe>
+        </div>
+        {% comment %} <h3>{{request.user.username|capfirst}}</h3> {% endcomment %}
+        
+            <ul class="list-unstyled">
+                <li class="d-gird">
+                    <a href="{% url "dangnhap" %}" class="btn btn-primary">Đăng Nhập</a>
+                </li>
+            </ul>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,25 @@
+{% extends 'master.html' %}
+
+{% block title %}Tài Khoản{% endblock %}
+{% comment %} 
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">Tài Khoản</li>
+{% endblock %} {% endcomment %}
+
+{% block main_content %}
+
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8 col-sm-10">
+        <h3 class="card-title text-center">Tài Khoản</h3>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {% include 'includes/form.html' %}
+            <a href="{% url "home" %}">
+              <button type="submit" class="btn btn-primary btn-block">Lưu</button>
+            </a>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+   

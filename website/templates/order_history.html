@@ -1,0 +1,46 @@
+{% extends "master.html" %}
+
+{% block main_content %}
+
+<div class="container">
+    <div class="row">                
+    <div id="content" class="col-sm-9">      
+     <h1>Lịch Sử Đơn Hàng</h1>
+     <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th class="text-left">Ngày Tạo</th>
+                <th class="text-left">Ảnh sản phẩm</th>
+                <th class="text-right">Tên Sản Phẩm</th>
+                <th class="text-right">Tổng Giá Trị</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in order_items %}
+              <tr>
+                <td class="text-right">{{ i.date_order }}</td>
+                <td class="text-left">
+                  {% for order_item in i.orderitem_set.all %}
+                  <img src="{{ order_item.product.image.url }}" alt="{{ order_item.product.name }}" width="50" height="50">
+                  {% endfor %}
+                </td>
+                <td class="text-right">
+                  {% for order_item in i.orderitem_set.all %}
+                    {{ order_item.product.product_name }}<br>
+                  {% endfor %}
+                </td>
+                <td class="text-right">{{ i.get_cart_total }}</td>
+              </tr>
+             {% endfor %}
+            </tbody>
+          </table>
+      </div>
+      <div class="text-right"></div>
+       <div class="buttons clearfix">
+        <div class="pull-right"><a href="{% url "home" %}" class="btn btn-primary">Tiếp Tục</a></div>
+       </div>
+      </div>
+  </div>
+  </div>
+{% endblock main_content %}

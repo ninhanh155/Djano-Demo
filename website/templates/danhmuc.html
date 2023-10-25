@@ -1,0 +1,18 @@
+{% extends 'master.html' %}
+{% block category %}
+<div class="row" style="width:100%" > 
+    {% for product in products %}
+    <div class="col-lg-3 mt-2" > 
+    <img style="width: 280px;height:250px;"src="{{ product.ImageURL }}" alt="">
+    <div class="box-element product">
+        <h6><strong> {{product.product_name}} </strong></h6>
+        <hr>
+        <button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Thêm giỏ hàng </button>
+        <a class="btn btn-outline-primary" href="{% url 'chitiet' product.id %}">Xem</a>
+        <h3 style="display: inline-block; float: right ">${{product.price | floatformat:0}}</h3>
+    </div>
+
+    </div>
+    {% endfor %}
+</div> 
+{% endblock category %}b

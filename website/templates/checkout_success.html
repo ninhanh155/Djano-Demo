@@ -1,0 +1,10 @@
+{% extends "master.html" %}
+{% block content_checkout %}
+<body>
+    <div class="container">
+        <h1>Thanh toán thành công!</h1>
+        <p>Cảm ơn bạn đã mua hàng. Đơn hàng của bạn đã được xử lý thành công.</p>
+        <p>Tổng cộng: ${{order.get_cart_total | floatformat:0}}</p>
+    </div>
+</body>
+{% endblock content_checkout %}

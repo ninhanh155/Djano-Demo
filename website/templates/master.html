@@ -1,0 +1,262 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snack Food</title>
+    <link rel="shortcut icon" type="image/png" href="{% static "app/img/logo2.png" %}"/>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link  href="{% static 'app/css/all.min.css'%}" rel="stylesheet">
+    <link  href="{% static 'app/css/owl.carousel.min.css' %}" rel="stylesheet">
+    {% comment %} <link rel="stylesheet" href="{% static 'app/css/bootstrap.min.css' %}">  {% endcomment %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="{% static 'app/js/s3.js'%}"></script>
+    <script src="{% static 'app/js/all.min.js'%}"></script>
+    <script src="{% static 'app/js/myscrip.js'%}"></script>
+    <script src="{% static 'app/js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'app/js/popper.min.js' %}"></script>
+    <script src="{% static 'app/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript">
+      var user = '{{request.user}}'
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+    </script>
+    {% block stylesheet %}{% endblock%}
+
+</head>
+<body style="background-color: #eee;">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+          <a class="navbar-brand" href="{% url "home" %}">
+              <img src="{% static 'app/img/logo2.png' %}", width=40, height=40 />
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url "home" %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url "product" %}">Sản phẩm</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Danh Mục
+              </a>
+
+              <ul class="dropdown-menu">
+                {% for i in categories %}
+                <li><a class="dropdown-item" href=" {% url "category" %}?category={{i.slug}}">{{i.name_category}}</a></li>
+                {% endfor %}
+              </ul>
+              
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="{% url "contact" %}">Liên hệ</a>
+            </li>
+          </ul>
+          
+          <form class="d-flex" role="search" method = POST action = "{% url 'search' %}">
+              {% csrf_token %}
+              <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search" name= "searched">
+              <button class="btn btn-outline-primary" type="submit" style="margin-right: 80px">Search</button>
+          </form>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="navbar-collapse collapse justify-content-end" id="mainMenu" style="">    
+          <ul class="navbar-nav ">
+            <div class="d-flex justify-content-between align-items-center">
+              <a href="{% url "yeuthich" %}"><i class="fa fa-heart text-muted" style="margin-right:8px"></a></i>
+              <a href="{% url "cart" %}"><i class="fa fa-shopping-cart text-muted"></a></i>
+            </div>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ user.username }}
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url "taikhoan" %}">Tài khoản</a>
+                <a class="dropdown-item" href="{% url "thaylaimatkhau" %}">Đổi mật khẩu</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url "dangxuat" %}">Đăng Xuất</a>
+              </ul>
+          </li>
+          </ul>
+        </div>
+        {% else %}
+          <form class="form-inline ml-auto ">
+            <a href="{% url "yeuthich" %}"><i class="fa fa-heart text-muted"></a></i>
+            <a href="{% url "cart" %}"><i class="fa fa-shopping-cart text-muted"></a></i>
+            <a href="{% url 'dangnhap' %}" class="btn btn-outline-secondary">Đăng Nhập</a>
+            <a href="{% url 'dangky' %}" class="btn btn-primary ml-2">Đăng Ký</a>
+          </form>
+        {% endif %}
+      </div>
+    </nav>
+    <br>
+  {% block banner_slider %}{% endblock banner_slider %}
+<!-- main body -->
+  {% block breadcrumb %}{% endblock breadcrumb %}
+  {% block main_content %}{% endblock main_content %}
+  {% block cart_content %}{% endblock cart_content %}
+  {% block content_checkout %}{% endblock content_checkout %}
+  {% block category %}{% endblock category %}
+  {% block search %}{% endblock search %}
+  {% block detail %}{% endblock detail %}
+  {% block wishlist %}{% endblock wishlist %}
+  {% block blogs %}{% endblock blogs %}
+  {% block comment %}{% endblock comment %}
+  {% block product %}{% endblock product %}
+  <!-- Footer -->
+<footer class="text-center text-lg-start text-muted">
+  <section>
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            <i class="fas fa-gem me-3"></i>Snack Food
+          </h6>
+          <p>
+            We use cookies to ensure you get the best experience when visiting our site. Cookies keep your access secure, help to personalise your shopping journey by offering targeted content, and also allow us to provide relevant advertisements to you.
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Products
+          </h6>
+          <p>
+            <a href="{% url "product" %}" class="text-reset">Sản Phẩm</a>
+          </p>
+          <p>
+            <a href="{% url "yeuthich" %}" class="text-reset">Yêu Thích</a>
+          </p>
+          <p>
+            <a href="{% url "order_history" %}" class="text-reset">Lịch sử Đơn Hàng</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Laravel</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Useful links
+          </h6>
+          <p>
+            <a href="{% url "blog" %}" class="text-reset">Tin tức</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Giới Thiệu</a>
+          </p>
+          <p>
+            <a href="{% url "contact" %}" class="text-reset">Liên Hệ</a>
+          </p>
+          <p>
+            <a href="{% url "thongke" %}" class="text-reset">Thống kê</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+          <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
+          <p>
+            <i class="fas fa-envelope me-3"></i>
+            info@example.com
+          </p>
+          <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+          <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <section class="d-flex justify-content-end p-4 border-bottom">
+    <!-- Left -->
+    <div>
+      <a href="https://www.facebook.com/ninhanh21" class="me-4 text-reset">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <!-- Right -->
+  </section>
+ 
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2023 Copyright:
+    <a class="text-reset fw-bold" href="#">Ninh Anh & Bảo </a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+  <script src="{% static 'app/js/cart.js'%}"></script>
+
+
+</body>
+</html>
+
+<style>
+  #cart-icon{
+    width:25px;
+    display: inline-block;
+    margin-left: 15px;
+  }
+  
+  #cart-total{
+    display: block;
+    text-align: center;
+    color:#fff;
+    background-color: red;
+    width: 20px;
+    height: 25px;
+    border-radius: 50%;
+    font-size: 14px;
+  }
+  
+</style>

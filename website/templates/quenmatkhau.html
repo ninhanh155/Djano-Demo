@@ -1,0 +1,21 @@
+{% extends 'master.html' %}
+
+{% block title %}Thiết lập lại mật khẩu{% endblock %}
+
+{% block main_content %}
+  <div class="row justify-content-center">
+    <div class="col-lg-4 col-md-6 col-sm-8">
+      {% comment %} <div class="card"> {% endcomment %}
+        <div class="card-body">
+          <h3 class="card-title">THIẾT LẬP LẠI MẬT KHẨU</h3>
+          <p>Nhập email của bạn, chúng tôi sẽ gửi liên kết cho bạn để thiết lập lại mật khẩu</p>
+          <form method="post" novalidate>
+            {% csrf_token %}
+            {% include 'includes/form.html' %}
+            <button type="submit" class="btn btn-primary btn-block">Gửi liên kết</button>
+          </form>
+        </div>
+      {% comment %} </div> {% endcomment %}
+    </div>
+  </div>
+{% endblock %}

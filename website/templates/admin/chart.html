@@ -1,0 +1,42 @@
+{% extends 'admin/base_site.html' %}
+
+{% block content %}
+<h1>Thống kê doanh thu</h1>
+<p>- Tổng số sản phẩm: {{ total_products }}</p>
+<p>- Tổng số khách hàng đăng ký tài khoản: {{ total_registered_users }}</p>
+
+{% for totals in total %}
+    <p>- Doanh thu tháng {{ totals.month|date:"n" }} là: {{ totals.total_sales | floatformat:1}} $
+    </p>
+{% comment %} {% empty %}
+    <p>Không có dữ liệu doanh thu.</p> {% endcomment %}
+{% endfor %}
+
+<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script>
+var xValues = [ {% for sales in sales_by_day %} '{{ sales.date_added__date }}', {% endfor %} ]; // Ngày
+var yValues = [ {% for sales in sales_by_day %} {{ sales.total_sales }} , {% endfor %} ]; // Tổng tiền của sản phẩm đã bán từng ngày
+var barColors = ["red", "green","blue","orange","brown","yellow",'aqua'];
+
+new Chart("myChart", {
+  type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      text: "Biểu đồ tổng doanh thu theo ngày"
+    }
+  }
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'master.html' %}
+
+{% block title %}Tạo chủ đề mới{% endblock %}
+
+
+
+{% block blogs %}
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    {% include "includes/form.html" %}
+
+    <button type="submit" class="btn btn-success">Tạo mới</button>
+  </form>
+
+{% endblock %}

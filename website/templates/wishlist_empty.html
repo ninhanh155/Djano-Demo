@@ -1,0 +1,31 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block main_content %}
+<div class="container-fluid  mt-100">
+    <div class="row">
+    
+       <div class="col-md-12">
+       
+            {% comment %} <div class="card"> {% endcomment %}
+                {% comment %} <div class="card-header">
+                    <h5>Cart</h5>
+                </div> {% endcomment %}
+                <div class="card-body cart">
+                    <div class="col-sm-12 empty-cart-cls text-center">
+                        <ion-icon name="heart-circle" style="font-size: 100px; color: #d1056c;"></ion-icon>
+                        <h3><strong>Bạn chưa có sản phẩm nào yêu thích</strong></h3>
+                        {% comment %} <h4>Thêm sản phẩm vào yêu thích để tiếp tục</h4> {% endcomment %}
+                        <a href="{% url "home" %}" class="btn btn-primary cart-btn-transform m-3" data-abc="true">Quay lại trang chủ</a>
+                        
+                    </div>
+                </div>
+            {% comment %} </div> {% endcomment %}
+        </div>
+    
+    </div>
+   
+</div>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+{% endblock main_content %}

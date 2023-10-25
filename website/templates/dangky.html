@@ -1,0 +1,23 @@
+{% extends 'master.html' %}
+
+{% block title %}Đăng kí{% endblock title%}
+
+{% block main_content %}
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10 col-sm-12">
+      {% comment %} <div class="card"> {% endcomment %}
+        <div class="card-body">
+          <h3 class="card-title text-center">ĐĂNG KÍ</h3>
+          <form method="post" novalidate>
+            {% csrf_token %}
+            {% include 'includes/form.html' %}
+            <button type="submit" class="btn btn-primary btn-block">Đăng kí</button>
+          </form>
+        </div>
+        <div class="card-footer text-muted text-center">
+          Nếu đã đăng kí? <a href="{% url "dangnhap" %}">Đăng nhập</a>
+        </div>
+      {% comment %} </div> {% endcomment %}
+    </div>
+  </div>
+{% endblock main_content %}

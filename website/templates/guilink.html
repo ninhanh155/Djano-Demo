@@ -1,0 +1,20 @@
+{% extends 'master.html' %}
+
+{% block title %}Thiết Lập Lại Mật Khẩu{% endblock %}
+
+{% block main_content %}
+  <div class="row justify-content-center">
+    <div class="col-lg-4 col-md-6 col-sm-8">
+      {% comment %} <div class="card"> {% endcomment %}
+        <div class="card-body">
+          <h3 class="card-title">Thiết lập lại mật khẩu</h3>
+          <p>
+            Kiểm tra email để lấy liên kết đến trang thiết lập lại mật khẩu, nếu
+            không thấy email, xin kiểm tra Spam. 
+          </p>
+          <a href="{% url 'dangnhap' %}" class="btn btn-secondary btn-block">Quay lại đăng nhập</a>
+        </div>
+      {% comment %} </div> {% endcomment %}
+    </div>
+  </div>
+{% endblock %}

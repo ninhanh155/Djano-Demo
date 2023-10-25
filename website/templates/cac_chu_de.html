@@ -1,0 +1,47 @@
+{% extends 'master.html' %}
+
+{% block blogs %}
+<div class="mb-4">
+  <a href="{% url 'tao_chu_de_moi' dd.id %}" class="btn btn-primary">Tạo chủ đề mới</a>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Chủ đề</th>
+      <th>Người tạo</th>
+      <th>Thảo luận</th>
+      <th>Lượt xem</th>
+      <th>Lần cập nhật cuối</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for cd in ccd %}
+      {% url 'chude_thaoluan' dd.id  cd.id as cd_tl_url %}
+      <tr>
+        <td>
+          <svg class="bd-placeholder-img" width="200" height="50" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+        </td>
+        <td>
+          <p class="mb-0">
+            <a href="{{ cd_tl_url }}">{{ cd.ten_chude }}</a>
+          </p>
+          <small class="text-muted">
+          
+        </td>
+        <td>{{ cd.tao_boi.username }}</td>
+        <td>{{ cd.cac_thaoluan.all.count }}</td>
+        <td>{{ cd.luot_xem }}</td>
+        <td>{{ cd.lan_capnhat_cuoi }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% include "includes/pagination.html" %}
+
+{% endblock blogs %}
+
+
+

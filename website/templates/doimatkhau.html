@@ -1,0 +1,34 @@
+{% extends 'master.html' %}
+
+{% block title %}
+  {% if validlink %}
+    Đổi mật khẩu cho tài khoản {{ form.user.username }}
+  {% else %}
+    Đổi mật khẩu
+  {% endif %}
+{% endblock %}
+
+{% block main_content %}
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8 col-sm-10">
+      {% comment %} <div class="card"> {% endcomment %}
+        <div class="card-body">
+          {% if validlink %}
+            <h3 class="card-title">Đổi mật khẩu tài khoản @{{ form.user.username }}</h3>
+            <form method="post" novalidate>
+              {% csrf_token %}
+              {% include 'includes/form.html' %}
+              <button type="submit" class="btn btn-success btn-block">Đổi mật khẩu</button>
+            </form>
+          {% else %}
+            <h3 class="card-title">Đổi mật khẩu</h3>
+            <div class="alert alert-danger" role="alert">
+              Có thể bạn đã kịch hoạt liên kết bị lỗi, xin thử lại!
+            </div>
+            <a href="{% url 'quenmatkhau' %}" class="btn btn-secondary btn-block">Gửi lại liên kết đổi mật khẩu</a>
+          {% endif %}
+        </div>
+      {% comment %} </div> {% endcomment %}
+    </div>
+  </div>
+{% endblock %}

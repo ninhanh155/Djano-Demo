@@ -1,0 +1,28 @@
+{% extends 'master.html' %}
+
+{% block title %}Đăng Nhập{% endblock %}
+
+{% block main_content %}
+  <div class="row justify-content-center">
+    <div class="col-lg-4 col-md-6 col-sm-8">
+      {% comment %} <div class="card"> {% endcomment %}
+        <div class="card-body">
+          <h3 class="card-title text-center">ĐĂNG NHẬP</h3>
+          <form method="post" novalidate>
+            {% csrf_token %}
+            {% include 'includes/form.html' %}
+            <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+          </form>
+        </div>
+        <div class="card-footer text-muted text-center">
+          Chưa có tài khoản? <a href="{% url 'dangky' %}">Đăng kí</a>
+        </div>
+      {% comment %} </div> {% endcomment %}
+      <div class="text-center py-2">
+        <small>
+          <a href="{% url "quenmatkhau" %}" class="text-muted">Quên mật khẩu?</a>
+        </small>
+      </div>
+    </div>
+  </div>
+{% endblock main_content %}
